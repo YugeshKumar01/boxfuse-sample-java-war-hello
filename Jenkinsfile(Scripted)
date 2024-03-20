@@ -17,7 +17,7 @@ node {
 
         // Stage: Deploy
         stage('deploy') {
-            sshagent(['Yugesh']) {
+            sshagent(['tomcat123']) {
                 sh """
                     scp -o StrictHostKeyChecking=no target/${appWar} ubuntu@172.31.38.235:/home/ubuntu/apache-tomcat-9.0.87/webapps/
                     
