@@ -1,26 +1,26 @@
 // Configure Jenkins two slaves to master by using SSH method and run check out, Build stage in Node-1 and Test stage in Node-2
 
 pipeline {
-      agent {
-        label 'Dev_Node'
-      }
+      agent none
       
       stages{
             stage("GIT checkout"){
-              
-            steps{
-                 git 'https://github.com/YugeshKumar01/boxfuse-sample-java-war-hello.git'
+              agent{
+                label 'Dev_Node'
+              }
+              steps{
+                git 'https://github.com/YugeshKumar01/boxfuse-sample-java-war-hello.git'
               }
             }
             stage("build"){
-              
-                  steps{
-                       sh "mvn clean package"
-                       sh "mv target/*.war target/boxfuse-sample-java-war-hello.war"
-                      }
+              agent{
+                label 'Dev_Node'
+              }  
+              steps{
+                sh "mvn clean package"
+                sh "mv target/*.war target/boxfuse-sample-java-war-hello.war"
+              }
                        
             }
-            
-            
-       }
-  }     
+      }
+}     
