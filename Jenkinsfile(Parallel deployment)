@@ -20,6 +20,7 @@ pipeline {
                     steps{
                         // Fetch code from the 'Dev' branch
                         sh "git fetch origin Dev"
+                        sh "git checkout Dev"
                         sh "git reset --hard origin/Dev"
                         sshagent(['tomcat']) { 
                             sh """
@@ -35,6 +36,7 @@ pipeline {
                     steps{
                         // Fetch code from the 'Fe1' branch
                         sh "git fetch origin Fe1"
+                        sh "git checkout Fe1"
                         sh "git reset --hard origin/Fe1"
                         sshagent(['tomcat']) { 
                             sh """
