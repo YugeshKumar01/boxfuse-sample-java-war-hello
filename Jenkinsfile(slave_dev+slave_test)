@@ -2,22 +2,18 @@
 
 pipeline {
       agent {
-        label none
+        label 'Dev_Node'
       }
       
       stages{
             stage("GIT checkout"){
-              agent {
-                label 'Dev_Node'
-              }
+              
             steps{
                  git 'https://github.com/YugeshKumar01/boxfuse-sample-java-war-hello.git'
               }
             }
             stage("build"){
-              agent {
-                label 'Dev_Node'
-              }
+              
                   steps{
                        sh "mvn clean package"
                        sh "mv target/*.war target/boxfuse-sample-java-war-hello.war"
