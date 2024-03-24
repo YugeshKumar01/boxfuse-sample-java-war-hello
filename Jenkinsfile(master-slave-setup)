@@ -1,6 +1,6 @@
 pipeline {
       agent {
-        label "Dev_Node' // this is the label name of slave or node server.
+        label 'Dev_Node' // this is the label name of slave or node server.
       }
       
       stages{
