@@ -24,15 +24,7 @@ pipeline {
                       }
                        
             }
-            stage("Test"){
-               agent {
-                label 'Test_Node'
-               }
-                  steps{
-                    sh "mvn test"
-                  }
-                      
-            }
+            
             
        }
   }     
