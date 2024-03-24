@@ -20,7 +20,7 @@ pipeline {
                     steps{
                         // Fetch code from the 'Dev' branch
                         sh "git checkout Dev"
-                        sh "git pull origin Dev"
+                        sh "git pull --ff-only origin Dev"
                         sshagent(['tomcat']) { 
                             sh """
                             scp -o StrictHostKeyChecking=no  target/boxfuse-sample-java-war-hello.war ubuntu@13.234.113.145:/home/ubuntu/apache-tomcat-9.0.87/webapps/
@@ -35,7 +35,7 @@ pipeline {
                     steps{
                         // Fetch code from the 'Fe1' branch
                         sh "git checkout Fe1"
-                        sh "git pull origin Fe1"
+                        sh "git pull --ff-only origin Fe1"
                         sshagent(['tomcat']) { 
                             sh """
                             scp -o StrictHostKeyChecking=no  target/boxfuse-sample-java-war-hello.war ubuntu@65.2.166.229:/home/ubuntu/apache-tomcat-9.0.87/webapps/
