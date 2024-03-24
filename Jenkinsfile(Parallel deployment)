@@ -18,6 +18,9 @@ pipeline {
             parallel {
                 stage('Deploy to Dev Server') {
                     steps{
+                        // Fetch code from the 'Dev' branch
+                        sh "git checkout Dev"
+                        sh "git pull origin Dev"
                         sshagent(['tomcat']) { 
                             sh """
                             scp -o StrictHostKeyChecking=no  target/boxfuse-sample-java-war-hello.war ubuntu@13.234.113.145:/home/ubuntu/apache-tomcat-9.0.87/webapps/
@@ -30,12 +33,15 @@ pipeline {
                 }
                 stage('Deploy to Fe1 Server') {
                     steps{
+                        // Fetch code from the 'Fe1' branch
+                        sh "git checkout Fe1"
+                        sh "git pull origin Fe1"
                         sshagent(['tomcat']) { 
                             sh """
-                            scp -o StrictHostKeyChecking=no  target/boxfuse-sample-java-war-hello.war ubuntu@13.234.113.145:/home/ubuntu/apache-tomcat-9.0.87/webapps/
+                            scp -o StrictHostKeyChecking=no  target/boxfuse-sample-java-war-hello.war ubuntu@65.2.166.229:/home/ubuntu/apache-tomcat-9.0.87/webapps/
                             
-                            ssh ubuntu@13.234.113.145 /home/ubuntu/apache-tomcat-9.0.87/bin/shutdown.sh
-                            ssh ubuntu@13.234.113.145 /home/ubuntu/apache-tomcat-9.0.87/bin/startup.sh     
+                            ssh ubuntu@65.2.166.229 /home/ubuntu/apache-tomcat-9.0.87/bin/shutdown.sh
+                            ssh ubuntu@65.2.166.229 /home/ubuntu/apache-tomcat-9.0.87/bin/startup.sh     
                             """
                         }
                     }
