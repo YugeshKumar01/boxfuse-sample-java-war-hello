@@ -1,6 +1,6 @@
 pipeline {
       agent {
-        label "Dev_Node'
+        label "Dev_Node' // this is the label name of slave or node server.
       }
       
       stages{
@@ -20,13 +20,13 @@ pipeline {
                   steps{
                      
                        
-                       sshagent(['tomcat123']) {
+                       sshagent(['tomcat']) {
                        
                        sh """
-                            scp -o StrictHostKeyChecking=no  target/boxfuse-sample-java-war-hello.war ubuntu@13.233.208.75:/home/ubuntu/apache-tomcat-9.0.87/webapps/
+                            scp -o StrictHostKeyChecking=no  target/boxfuse-sample-java-war-hello.war ubuntu@13.234.113.145:/home/ubuntu/apache-tomcat-9.0.87/webapps/
                             
-                            ssh ubuntu@13.233.208.75 /home/ubuntu/apache-tomcat-9.0.87/bin/shutdown.sh
-                            ssh ubuntu@13.233.208.75 /home/ubuntu/apache-tomcat-9.0.87/bin/startup.sh
+                            ssh ubuntu@13.234.113.145 /home/ubuntu/apache-tomcat-9.0.87/bin/shutdown.sh
+                            ssh ubuntu@13.234.113.145 /home/ubuntu/apache-tomcat-9.0.87/bin/startup.sh
                             
                           """
     
