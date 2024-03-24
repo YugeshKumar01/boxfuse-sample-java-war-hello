@@ -24,8 +24,8 @@ pipeline {
                       }
                        
             }
-             stage("Test"){
-               gent {
+            stage("Test"){
+               agent {
                 label 'Test_Node'
                }
                   steps{
