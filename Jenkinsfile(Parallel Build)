@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                echo "Checking out code from the repository"
+                git 'https://github.com/YugeshKumar01/boxfuse-sample-java-war-hello.git'
+            }
+        }
+        stage('Build') {
+            parallel {
+                stage('Build on Dev_node') {
+                    agent {
+                        label 'Dev_Node'
+                    }
+                    steps{
+                        sh "mvn clean package"
+                        sh "mv target/*.war target/boxfuse-sample-java-war-hello.war"
+                    }
+                }
+                stage('Build on Test_Node') {
+                    agent {
+                        label 'Test_Node'
+                    }
+                    steps{
+                        sh "mvn clean package"
+                        sh "mv target/*.war target/boxfuse-sample-java-war-hello.war"
+                    }
+            }
+        }
+    }
+}
