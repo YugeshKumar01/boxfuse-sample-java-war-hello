@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage("GIT checkout"){
+            steps{
+                git 'https://github.com/YugeshKumar01/boxfuse-sample-java-war-hello.git'
+            }
+        }
+        stage('Build') {
+            steps{
+                sh "mvn clean package"
+                sh "mv target/*.war target/boxfuse-sample-java-war-hello.war"
+              }
+        }
+        
+        stage('Deploy to Dev and Fe1 Servers') {
+            parallel {
+                stage('Deploy to Dev Server') {
+                    steps{
+                        sshagent(['tomcat']) { 
+                            sh """
+                            scp -o StrictHostKeyChecking=no  target/boxfuse-sample-java-war-hello.war ubuntu@13.234.113.145:/home/ubuntu/apache-tomcat-9.0.87/webapps/
+                            
+                            ssh ubuntu@13.234.113.145 /home/ubuntu/apache-tomcat-9.0.87/bin/shutdown.sh
+                            ssh ubuntu@13.234.113.145 /home/ubuntu/apache-tomcat-9.0.87/bin/startup.sh     
+                            """
+                        }
+                    }
+                }
+                stage('Deploy to Fe1 Server') {
+                    steps{
+                        sshagent(['tomcat']) { 
+                            sh """
+                            scp -o StrictHostKeyChecking=no  target/boxfuse-sample-java-war-hello.war ubuntu@13.234.113.145:/home/ubuntu/apache-tomcat-9.0.87/webapps/
+                            
+                            ssh ubuntu@13.234.113.145 /home/ubuntu/apache-tomcat-9.0.87/bin/shutdown.sh
+                            ssh ubuntu@13.234.113.145 /home/ubuntu/apache-tomcat-9.0.87/bin/startup.sh     
+                            """
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
