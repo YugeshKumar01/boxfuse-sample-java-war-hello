@@ -15,7 +15,7 @@ pipeline {
             post {
                 success {
                     script {
-                        nexusArtifactUploader credentialsId: 'nexus-id', groupId: 'com.boxfuse.samples', nexusUrl: '13.232.6.56:8081', nexusVersion: 'nexus3', protocol: 'http', repository: '/repository/sample-releases/', version: '9.3.1'
+                       nexusArtifactUploader credentialsId: 'nexus-id', groupId: 'com.boxfuse.samples', nexusUrl: '13.232.6.56:8081/repository/sample-releases/', nexusVersion: 'nexus3', protocol: 'http', repository: '/repository/sample-releases/', version: '9.3.1'
                     }
                 }
             }
