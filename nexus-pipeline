@@ -15,23 +15,6 @@ pipeline {
             post {
                 success {
                     script {
-                       pipeline {
-    agent any
-    
-    stages {
-        stage("GIT checkout") {
-            steps {
-                git 'https://github.com/YugeshKumar01/boxfuse-sample-java-war-hello.git'
-            }
-        }
-        stage("Build") {
-            steps {
-                sh "mvn clean package"
-                sh "mv target/*.war target/boxfuse-sample-java-war-hello.war"
-            }
-            post {
-                success {
-                    script {
                         nexusArtifactUploader credentialsId: 'nexus-id', groupId: 'com.boxfuse.samples', nexusUrl: '13.232.6.56:8081', nexusVersion: 'nexus3', protocol: 'http', repository: '/repository/sample-releases/', version: '9.3.1'
                     }
                 }
@@ -39,5 +22,3 @@ pipeline {
         }
     }
 }
-
-
