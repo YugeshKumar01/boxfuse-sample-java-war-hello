@@ -16,7 +16,7 @@ pipeline {
                 success {
                     script {
                         try {
-                            nexusArtifactUploader artifacts: [[artifactId: 'hello', classifier: '', file: 'target/hello-9.3.1.war', type: 'war']], credentialsId: 'nexus-id', groupId: 'com.boxfuse.samples', nexusUrl: '13.232.6.56:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'http://13.232.6.56:8081/repository/sample-releases/', version: '9.3.1'
+                            nexusArtifactUploader artifacts: [[artifactId: 'hello', classifier: '', file: 'target/hello-9.3.1.war', type: 'war']], credentialsId: 'nexus-id', groupId: 'com.boxfuse.samples', nexusUrl: 'http://13.232.6.56:8081/repository/sample-releases/', nexusVersion: 'nexus3', protocol: 'http', repository: 'http://13.232.6.56:8081/repository/sample-releases/', version: '9.3.1'
                         } catch (Exception e) {
                             println "Error uploading artifact: ${e.message}"
                             throw e
