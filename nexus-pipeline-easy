@@ -1,3 +1,5 @@
+# install nexus and pipeline utility plugins in jenkins
+
 pipeline {
     agent any
     
