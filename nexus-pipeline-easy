@@ -29,7 +29,7 @@ pipeline {
                     nexusUrl: 'http://13.233.208.177:8081',
                     nexusVersionId: 'nexus3',
                     protocol: 'http',
-                    repository: 'sample-releases',
+                    repository: 'sample-releases-upload',
                     version: version
                 }
             }
