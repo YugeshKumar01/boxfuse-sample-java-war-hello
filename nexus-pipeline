@@ -10,15 +10,28 @@ pipeline {
         stage("Build") {
             steps {
                 sh "mvn clean package"
-                sh "mv target/*.war target/boxfuse-sample-java-war-hello.war"
-            }
-            post {
-                success {
-                    script {
-                        nexusArtifactUploader artifacts: [[artifactId: 'boxfuse-sample-java-war-hello', file: 'target/boxfuse-sample-java-war-hello.war', type: 'war']], credentialsId: 'nexus-id', groupId: 'com.boxfuse.samples', nexusUrl: 'http://13.232.6.56:8081/repository/sample-releases/', version: '9.3.1'
-                    }
-                }
-            }
+               
+            }         
         }
-    }
+        stage("Upload war to Nexus")
+            steps{
+               script{
+                     def mavenPom = readMavenPom 'pom.xml'
+                        nexusArtifactUploader artifacts: [
+                        [
+                            artifactId: 'hello',
+                            classifier:'',
+                            file: "target/hello-${mavenPom.version}.war",
+                            type: 'war'
+                            ]
+                        ],
+                        credentaialsId: 'nexus-id',
+                        groupId: 'com.boxfuse.samples',
+                        nexusUrl: '13.233.208.177:8081'
+                        nexusVersion: 'nexus3',
+                        protocol: 'http',
+                        repository: 'sample-releases',
+                        version: "${mavenPom.version}"
+                }
+        }
 }
