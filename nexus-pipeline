@@ -16,7 +16,7 @@ pipeline {
         stage("Upload war to Nexus")
             steps{
                script{
-                     def mavenPom = readMavenPom 'pom.xml'
+                     def mavenPom = readMavenPom file: 'pom.xml'
                         nexusArtifactUploader artifacts: [
                         [
                             artifactId: 'hello',
@@ -28,7 +28,7 @@ pipeline {
                         credentaialsId: 'nexus-id',
                         groupId: 'com.boxfuse.samples',
                         nexusUrl: '13.233.208.177:8081'
-                        nexusVersion: 'nexus3',
+                        nexusVersionId: 'nexus3',
                         protocol: 'http',
                         repository: 'sample-releases',
                         version: "${mavenPom.version}"
