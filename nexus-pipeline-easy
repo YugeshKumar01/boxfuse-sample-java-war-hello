@@ -24,7 +24,7 @@ pipeline {
                             type: 'war'
                         ]
                     ],
-                    credentialsId: 'nexus-id',
+                    credentialsId: 'jenkins',
                     groupId: 'com.boxfuse.samples',
                     nexusUrl: 'http://13.233.208.177:8081',
                     nexusVersion: 'nexus3',
